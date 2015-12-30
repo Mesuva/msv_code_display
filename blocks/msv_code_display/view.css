@@ -1,0 +1,16 @@
+.msv-code-display {
+    margin: 0;
+}
+
+.msv-code-display figcaption {
+    font-size: 90%;
+}
+
+.msv-code-editor {
+    border: none;
+    width: 100%;
+}
+
+.msv-code-display .ace_hidden-cursors {
+    opacity:0
+}
