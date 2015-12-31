@@ -2,11 +2,10 @@
 
 namespace Concrete\Package\MsvCodeDisplay\Block\MsvCodeDisplay;
 
-use \Concrete\Core\Block\BlockController;
-use \Symfony\Component\HttpFoundation\Session\Session;
+use Concrete\Core\Block\BlockController;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Concrete\Core\Editor\LinkAbstractor;
 use Core;
-use Page;
-use Loader;
 
 class Controller extends BlockController
 {
@@ -36,19 +35,8 @@ class Controller extends BlockController
     {
         $this->set('unique_identifier', Core::make('helper/validation/identifier')->getString(18));
 
-        // re-write any internal page urls to pretty urls
         if ($this->description) {
-            $navhelper = Core::make("helper/navigation");
-            $match = "|(" . preg_quote(BASE_URL) . ")/index.php\?cID=([0-9]+)|";
-            $description = preg_replace_callback($match, function ($matches) use ($navhelper) {
-                $cID = $matches[2];
-                if ($cID > 0) {
-                    $c = Page::getByID($cID, 'ACTIVE');
-                    return $navhelper->getLinkToCollection($c);
-                }
-            }, $this->description);
-
-            $this->set('description', $description);
+            $this->set('description',  LinkAbstractor::translateFrom($this->description));
         }
     }
 
@@ -83,7 +71,6 @@ class Controller extends BlockController
 
     public function save($args)
     {
-
         $session = new Session();
         $session->set('msv_code_display.lastFontSize', $this->post('fontSize'));
         $session->set('msv_code_display.lastLanguage', $this->post('language'));
@@ -96,9 +83,10 @@ class Controller extends BlockController
         $args['lineWrapping'] = $args['lineWrapping'] ? 1 : 0;
         $args['content'] = isset($args['content']) ? base64_decode($args['content']) : '';
         $args['title'] = trim($args['title']);
-        $args['description'] = trim($args['description']);
+        $args['fontSize'] = max($args['fontSize'], 2);
+        $args['maximumLines'] = max($args['maximumLines'], 0);
+        $args['description'] = LinkAbstractor::translateTo($args['description']);
 
         parent::save($args);
     }
-
 }

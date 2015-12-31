@@ -201,8 +201,8 @@
         <div class="form-group">
             <?php echo $form->label('fontSize',t("Font Size")); ?>
             <div class="input-group">
-                <?php echo $form->number('fontSize',($fontSize ? $fontSize : ($lastFontSize ? $lastFontSize : 12)), array('required'=>'required', 'min'=>'1','max'=>'40')); ?>
-                <div class="input-group-addon"><?= t('px');?></div>
+                <?php echo $form->number('fontSize',($fontSize ? $fontSize : ($lastFontSize ? $lastFontSize : 12)), array('required'=>'required', 'min'=>'2','max'=>'40')); ?>
+                <div class="input-group-addon"><?php echo t('px');?></div>
             </div>
         </div>
     </div>
@@ -210,7 +210,7 @@
     <div class="col-xs-6">
         <div class="form-group">
             <?php echo $form->label('maximumLines',t("Maximum Lines (0 for auto)")); ?>
-            <?php echo $form->number('maximumLines',($maximumLines ? $maximumLines : 0), array('required'=>'required')); ?>
+            <?php echo $form->number('maximumLines',($maximumLines ? $maximumLines : 0), array('required'=>'required', 'min'=>'0')); ?>
         </div>
     </div>
 

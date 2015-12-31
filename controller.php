@@ -3,14 +3,13 @@
 // Author: Ryan Hewitt - http://www.mesuva.com.au
 namespace Concrete\Package\MsvCodeDisplay;
 use Package;
-use SinglePage;
 use BlockType;
 
 class Controller extends Package {
 
     protected $pkgHandle = 'msv_code_display';
     protected $appVersionRequired = '5.7.5.2';
-    protected $pkgVersion = '0.9';
+    protected $pkgVersion = '0.9.1';
 
     public function getPackageDescription() {
         return t("Display syntax highlighted code");
