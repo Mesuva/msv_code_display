@@ -44,19 +44,19 @@ class Controller extends BlockController
     {
         $this->edit();
 
-        $session = new Session();
+        $session  =Core::make('app')->make('session');
         $this->set('lastFontSize', $session->get('msv_code_display.lastFontSize'));
         $this->set('lastLanguage', $session->get('msv_code_display.lastLanguage'));
         $this->set('lastTheme', $session->get('msv_code_display.lastTheme'));
         $this->set('lastShowLineNumbers', $session->get('msv_code_display.lastShowLineNumbers'));
         $this->set('lastlineWrapping', $session->get('msv_code_display.lastlineWrapping'));
+
     }
 
     public function edit()
     {
         $this->requireAsset('ace');
     }
-
 
     public function registerViewAssets()
     {
@@ -71,7 +71,8 @@ class Controller extends BlockController
 
     public function save($args)
     {
-        $session = new Session();
+
+        $session = Core::make('app')->make('session');
         $session->set('msv_code_display.lastFontSize', $this->post('fontSize'));
         $session->set('msv_code_display.lastLanguage', $this->post('language'));
         $session->set('msv_code_display.lastTheme', $this->post('theme'));
