@@ -58,7 +58,7 @@ class Controller extends BlockController
         $this->requireAsset('ace');
     }
 
-    public function registerViewAssets()
+    public function registerViewAssets($outputContent = '')
     {
         $this->requireAsset('javascript', 'jquery');
         $this->requireAsset('ace');
