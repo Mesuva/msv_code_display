@@ -9,7 +9,7 @@ class Controller extends Package {
 
     protected $pkgHandle = 'msv_code_display';
     protected $appVersionRequired = '5.7.5.2';
-    protected $pkgVersion = '0.9.3';
+    protected $pkgVersion = '1.0.2';
 
     public function getPackageDescription() {
         return t("Display syntax highlighted code");
@@ -21,7 +21,7 @@ class Controller extends Package {
 
     public function install() {
         $pkg = parent::install();
-        BlockType::installBlockTypeFromPackage('msv_code_display', $pkg);
+        BlockType::installBlockType('msv_code_display', $pkg);
     }
 }
 

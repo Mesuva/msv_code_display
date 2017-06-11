@@ -298,13 +298,19 @@
 
         $('#ccm-form-submit-button').click(function(){
             // encode to base64 before submitting to prevent trigging modsecurity
-            $('#ccm-block-code-value-textarea').val(btoa(editor.getValue()));
+            $('#ccm-block-code-value-textarea').val(b64EncodeUnicode(editor.getValue()));
         });
 
     });
 
     function refreshTextarea(contents) {
         $('#ccm-block-code-value-textarea').val(contents);
+    }
+
+    function b64EncodeUnicode(str) {
+        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
     }
 </script>
 
