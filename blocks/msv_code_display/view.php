@@ -15,6 +15,7 @@
 <script>
 
 $(document).ready(function() {
+    ace.config.set("basePath", '<?php echo ASSETS_URL_JAVASCRIPT?>/ace');
     var editor = ace.edit("editor-<?php echo $unique_identifier?>");
     editor.setTheme("ace/theme/<?php echo $theme; ?>");
     editor.getSession().setMode({path:"ace/mode/<?php echo $language; ?>", inline:true});
