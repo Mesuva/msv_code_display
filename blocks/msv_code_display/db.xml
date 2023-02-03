@@ -4,37 +4,37 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 http://concrete5.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
 
-    <table name="btMsvCodeDisplay">
-        <field name="bID" type="integer">
-            <unsigned/>
-            <key/>
-        </field>
-        <field name="content" type="text"/>
-        <field name="title" type="text"/>
-        <field name="description" type="text"/>
-        <field name="language" type="string" size="100"></field>
-        <field name="theme" type="string" size="100"></field>
-        <field name="showLineNumbers" type="boolean">
-            <unsigned/>
-            <default value="1"/>
-            <notnull/>
-        </field>
-        <field name="showInvisibles" type="boolean">
-            <unsigned/>
-            <default value="1"/>
-            <notnull/>
-        </field>
-        <field name="lineWrapping" type="boolean">
-            <unsigned/>
-            <default value="1"/>
-            <notnull/>
-        </field>
-        <field name="fontSize" type="integer">
-            <unsigned/>
-        </field>
-        <field name="maximumLines" type="integer">
-            <unsigned/>
-        </field>
-    </table>
+  <table name="btMsvCodeDisplay">
+    <field name="bID" type="integer">
+      <unsigned/>
+      <key/>
+    </field>
+    <field name="content" type="text"/>
+    <field name="title" type="text"/>
+    <field name="description" type="text"/>
+    <field name="language" type="string" size="100"></field>
+    <field name="theme" type="string" size="100"></field>
+    <field name="showLineNumbers" type="boolean">
+      <unsigned/>
+      <default value="1"/>
+      <notnull/>
+    </field>
+    <field name="showInvisibles" type="boolean">
+      <unsigned/>
+      <default value="1"/>
+      <notnull/>
+    </field>
+    <field name="lineWrapping" type="boolean">
+      <unsigned/>
+      <default value="1"/>
+      <notnull/>
+    </field>
+    <field name="fontSize" type="integer">
+      <unsigned/>
+    </field>
+    <field name="maximumLines" type="integer">
+      <unsigned/>
+    </field>
+  </table>
 
 </schema>

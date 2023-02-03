@@ -1,11 +1,7 @@
 <?php
-
 namespace Concrete\Package\MsvCodeDisplay\Block\MsvCodeDisplay;
-
 use Concrete\Core\Block\BlockController;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Concrete\Core\Editor\LinkAbstractor;
-use Core;
 
 class Controller extends BlockController
 {
@@ -35,7 +31,8 @@ class Controller extends BlockController
 
     public function view()
     {
-        $this->set('unique_identifier', Core::make('helper/validation/identifier')->getString(18));
+        $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
+        $this->set('unique_identifier',$app->make('helper/validation/identifier')->getString(18));
 
         if ($this->description) {
             $this->set('description', LinkAbstractor::translateFrom($this->description));
@@ -45,19 +42,21 @@ class Controller extends BlockController
     public function add()
     {
         $this->edit();
-
-        $session = Core::make('app')->make('session');
+        $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
+        $this->set('app', $app);
+        $session = $app->make('session');
         $this->set('lastFontSize', $session->get('msv_code_display.lastFontSize'));
         $this->set('lastLanguage', $session->get('msv_code_display.lastLanguage'));
         $this->set('lastTheme', $session->get('msv_code_display.lastTheme'));
         $this->set('lastShowLineNumbers', $session->get('msv_code_display.lastShowLineNumbers'));
         $this->set('lastlineWrapping', $session->get('msv_code_display.lastlineWrapping'));
-
     }
 
     public function edit()
     {
         $this->requireAsset('ace');
+        $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
+        $this->set('app', $app);
     }
 
     public function registerViewAssets($outputContent = '')
@@ -73,7 +72,8 @@ class Controller extends BlockController
 
     public function save($args)
     {
-        $session = Core::make('app')->make('session');
+        $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
+        $session = $app->make('session');
         $session->set('msv_code_display.lastFontSize', $this->getRequest()->get('fontSize'));
         $session->set('msv_code_display.lastLanguage', $this->getRequest()->get('language'));
         $session->set('msv_code_display.lastTheme', $this->getRequest()->get('theme'));
