@@ -8,10 +8,9 @@ use Concrete\Core\Block\BlockType\BlockType;
 
 class Controller extends Package
 {
-
     protected $pkgHandle = 'msv_code_display';
     protected $appVersionRequired = '8.0';
-    protected $pkgVersion = '1.1';
+    protected $pkgVersion = '1.1.1';
 
     public function getPackageDescription()
     {
