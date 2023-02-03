@@ -20,6 +20,8 @@ class Controller extends BlockController
     protected $btDefaultSet = 'basic';
 
     public $content = "";
+    public $description = "";
+    public $title = "";
 
     public function getBlockTypeDescription()
     {
@@ -36,7 +38,7 @@ class Controller extends BlockController
         $this->set('unique_identifier', Core::make('helper/validation/identifier')->getString(18));
 
         if ($this->description) {
-            $this->set('description',  LinkAbstractor::translateFrom($this->description));
+            $this->set('description', LinkAbstractor::translateFrom($this->description));
         }
     }
 
@@ -44,7 +46,7 @@ class Controller extends BlockController
     {
         $this->edit();
 
-        $session  =Core::make('app')->make('session');
+        $session = Core::make('app')->make('session');
         $this->set('lastFontSize', $session->get('msv_code_display.lastFontSize'));
         $this->set('lastLanguage', $session->get('msv_code_display.lastLanguage'));
         $this->set('lastTheme', $session->get('msv_code_display.lastTheme'));
@@ -71,19 +73,18 @@ class Controller extends BlockController
 
     public function save($args)
     {
-
         $session = Core::make('app')->make('session');
-        $session->set('msv_code_display.lastFontSize', $this->post('fontSize'));
-        $session->set('msv_code_display.lastLanguage', $this->post('language'));
-        $session->set('msv_code_display.lastTheme', $this->post('theme'));
-        $session->set('msv_code_display.lastShowLineNumbers', $this->post('showLineNumbers'));
-        $session->set('msv_code_display.lastlineWrapping', $this->post('lineWrapping'));
+        $session->set('msv_code_display.lastFontSize', $this->getRequest()->get('fontSize'));
+        $session->set('msv_code_display.lastLanguage', $this->getRequest()->get('language'));
+        $session->set('msv_code_display.lastTheme', $this->getRequest()->get('theme'));
+        $session->set('msv_code_display.lastShowLineNumbers', $this->getRequest()->get('showLineNumbers'));
+        $session->set('msv_code_display.lastlineWrapping', $this->getRequest()->get('lineWrapping'));
 
-        $args['showLineNumbers'] = $args['showLineNumbers'] ? 1 : 0;
-        $args['showInvisibles'] = $args['showInvisibles'] ? 1 : 0;
-        $args['lineWrapping'] = $args['lineWrapping'] ? 1 : 0;
+        $args['showLineNumbers'] = $args['showLineNumbers'] ?? 0;
+        $args['showInvisibles'] = $args['showInvisibles'] ?? 0;
+        $args['lineWrapping'] = $args['lineWrapping'] ?? 0;
         $args['content'] = isset($args['content']) ? base64_decode($args['content']) : '';
-        $args['title'] = trim($args['title']);
+        $args['title'] = trim($args['title'] ?? '');
         $args['fontSize'] = max($args['fontSize'], 2);
         $args['maximumLines'] = max($args['maximumLines'], 0);
         $args['description'] = LinkAbstractor::translateTo($args['description']);
