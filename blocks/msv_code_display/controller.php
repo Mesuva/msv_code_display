@@ -80,11 +80,11 @@ class Controller extends BlockController
         $session->set('msv_code_display.lastShowLineNumbers', $this->getRequest()->get('showLineNumbers'));
         $session->set('msv_code_display.lastlineWrapping', $this->getRequest()->get('lineWrapping'));
 
-        $args['showLineNumbers'] = $args['showLineNumbers'] ?? 0;
-        $args['showInvisibles'] = $args['showInvisibles'] ?? 0;
-        $args['lineWrapping'] = $args['lineWrapping'] ?? 0;
+        $args['showLineNumbers'] = isset($args['showLineNumbers'])  ? 1 : 0;
+        $args['showInvisibles'] = isset($args['showInvisibles']) ? 1 : 0;
+        $args['lineWrapping'] = isset($args['lineWrapping']) ? 1 : 0;
         $args['content'] = isset($args['content']) ? base64_decode($args['content']) : '';
-        $args['title'] = trim($args['title'] ?? '');
+        $args['title'] = trim($args['title'] ? $args['title'] : '');
         $args['fontSize'] = max($args['fontSize'], 2);
         $args['maximumLines'] = max($args['maximumLines'], 0);
         $args['description'] = LinkAbstractor::translateTo($args['description']);

@@ -1,6 +1,7 @@
-<?php use Concrete\Core\Form\Service\Form;
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php
 
-defined('C5_EXECUTE') or die("Access Denied.");
+use Concrete\Core\Form\Service\Form;
 
 /**
  * @var Form $form
@@ -147,7 +148,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
                 'xquery' => 'XQuery',
                 'yaml' => 'YAML',
                 'django' => 'Django',
-            ), ($language ?? ($lastLanguage ?? 'php'))); ?>
+            ), (isset($language) ? $language : (isset($lastLanguage) ? $lastLanguage : 'php'))); ?>
 
         </div>
     </div>
@@ -187,7 +188,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
                 'tomorrow_night_bright' => t('Dark') . ' - ' . 'Tomorrow Night Bright',
                 'tomorrow_night_eighties' => t('Dark') . ' - ' . 'Tomorrow Night 80s',
                 'twilight' => t('Dark') . ' - ' . 'Twilight',
-                'vibrant_ink' => t('Dark') . ' - ' . 'Vibrant Ink'), ($theme ?? ($lastTheme ?? 'chrome'))); ?>
+                'vibrant_ink' => t('Dark') . ' - ' . 'Vibrant Ink'), (isset($theme) ? $theme : (isset($lastTheme) ? $lastTheme :'chrome'))); ?>
         </div>
     </div>
 </div>
@@ -195,7 +196,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
 
 <div class="form-group">
     <?php echo $form->label('ccm-block-code-value-textarea', t("Code")); ?>
-    <div id="ccm-block-code-value"><?php echo h($content ?? '') ?></div>
+    <div id="ccm-block-code-value"><?php echo h(isset($content) ? $content : '') ?></div>
     <textarea style="display: none" id="ccm-block-code-value-textarea" name="content"></textarea>
 </div>
 
@@ -212,8 +213,8 @@ defined('C5_EXECUTE') or die("Access Denied.");
         <div class="form-group">
             <?php echo $form->label('fontSize', t("Font Size")); ?>
             <div class="input-group">
-                <?php echo $form->number('fontSize', ($fontSize ?? ($lastFontSize ?? 12)), array('required' => 'required', 'min' => '2', 'max' => '40')); ?>
-                <div class="input-group-addon"><?php echo t('px'); ?></div>
+                <?php echo $form->number('fontSize', (isset($fontSize) ? $fontSize : ($lastFontSize ? $lastFontSize :12)), array('required' => 'required', 'min' => '2', 'max' => '40')); ?>
+                <div class="input-group-addon input-group-text"><?php echo t('px'); ?></div>
             </div>
         </div>
     </div>
@@ -221,7 +222,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
     <div class="col-xs-6">
         <div class="form-group">
             <?php echo $form->label('maximumLines', t("Maximum Lines (0 for auto)")); ?>
-            <?php echo $form->number('maximumLines', ($maximumLines ?? 0), array('required' => 'required', 'min' => '0')); ?>
+            <?php echo $form->number('maximumLines', (isset($maximumLines) ? $maximumLines : 0), array('required' => 'required', 'min' => '0')); ?>
         </div>
     </div>
 
@@ -230,19 +231,19 @@ defined('C5_EXECUTE') or die("Access Denied.");
 <div class="row">
     <div class="col-xs-4">
         <div class="form-group">
-            <?php echo $form->checkbox('showLineNumbers', '1', ($showLineNumbers ?? ($lastShowLineNumbers ?? 1))); ?>
+            <?php echo $form->checkbox('showLineNumbers', '1', (isset($showLineNumbers) ? $showLineNumbers :  (isset($lastShowLineNumbers) ? $lastShowLineNumbers : 0))); ?>
             <?php echo $form->label('showLineNumbers', t("Line Numbers")); ?>
         </div>
     </div>
     <div class="col-xs-4">
         <div class="form-group">
-            <?php echo $form->checkbox('lineWrapping', '1', ($lineWrapping ?? ($lastShowLineNumbers ?? 1))); ?>
+            <?php echo $form->checkbox('lineWrapping', '1', (isset($lineWrapping) ? $lineWrapping : (isset($lastlineWrapping) ? $lastlineWrapping: 0))); ?>
             <?php echo $form->label('lineWrapping', t("Line Wrapping")); ?>
         </div>
     </div>
     <div class="col-xs-4">
         <div class="form-group">
-            <?php echo $form->checkbox('showInvisibles', '1', ($showInvisibles ?? 0)); ?>
+            <?php echo $form->checkbox('showInvisibles', '1', (isset($showInvisibles) ? $showInvisibles : 0)); ?>
             <?php echo $form->label('showInvisibles', t("Show Invisibles")); ?>
         </div>
     </div>
@@ -250,13 +251,13 @@ defined('C5_EXECUTE') or die("Access Denied.");
 
 <div class="form-group">
     <?php echo $form->label('title', t("Title")); ?>
-    <?php echo $form->text('title', $title ?? '', array('placeholder' => t('Optional'))); ?>
+    <?php echo $form->text('title', isset($title) ? $title : '', array('placeholder' => t('Optional'))); ?>
 </div>
 
 <div class="form-group">
     <?php echo $form->label('description', t("Description")); ?>
     <?php $editor = Core::make('editor');
-    echo $editor->outputStandardEditor('description', $description ?? '');
+    echo $editor->outputStandardEditor('description', isset($description) ? $description : '');
     ?>
 </div>
 
